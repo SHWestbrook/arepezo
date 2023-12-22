@@ -1,0 +1,81 @@
+.container{
+    margin-left: auto;
+    margin-right: auto;
+}
+main {
+    height: 400px;
+    padding: 80px 100px 117px;
+}
+footer {
+    margin-top: 17px;
+    position: relative;
+    background-color: rgb(24, 136, 219);
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+input[type=submit], input[type=reset] {
+    background-color: #1888db;
+    color: white;
+    padding: 7px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0 ;
+
+}
+input[type=text], select {
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container label {
+    margin-bottom: 5px; /* Espacio entre el texto y el campo */
+}
+
+#miTabla {
+    width: 100%;
+    margin-top: 1em;
+    border-collapse: collapse;
+}
+
+#miTabla th,
+#miTabla td {
+    padding: 8px;
+    text-align: left;
+}
+
+#miTabla th {
+    background-color: #f2f2f2;
+}
+
+#miTabla tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#miTabla tbody tr:hover {
+    background-color: #d4edda; /* Cambia el color al pasar el ratón por encima */
+}
+
+/* Estilo para el botón de detalles en la columna de acciones */
+#miTabla .detalles-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+#miTabla .detalles-btn:hover {
+    background-color: #0056b3;
+}

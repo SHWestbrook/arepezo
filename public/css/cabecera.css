@@ -1,0 +1,43 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Chakra Petch', sans-serif;
+}
+.cabecera{
+    background-color: #fff929;
+    display: flex;
+    align-content: center;
+}
+.navi{
+    display: flex;
+    margin-left: 15%;
+}
+.menu-container{
+    display: flex;
+    margin: 15% 5%;
+}
+.toggle-btn{
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 3px;
+    background-color: transparent;
+}
+.dropdown-menu{
+    display: none;
+    position: absolute;
+    top: 7%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li{
+    margin: 10px;
+}
+.au{
+    color: #000000;
+    font-size: 30px;
+}
+
