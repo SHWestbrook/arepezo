@@ -21,4 +21,8 @@ class Categoriamenu extends Model
         return $this->hasMany(Menu::class);
     }
 
+    public static function obtenerCat(){
+        return self::select('id','descripcion');
+    }
+
 }

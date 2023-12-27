@@ -21,4 +21,8 @@ class Tipoalimento extends Model
     {
         return $this->hasMany(Menu::class);
     }
+
+    public static function obtenerTipo(){
+        return self::select ('id','descripcion', 'iva');
+    }
 }

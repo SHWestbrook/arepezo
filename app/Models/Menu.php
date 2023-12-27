@@ -45,9 +45,8 @@ class Menu extends Model
    public static function obtenerMenus()
     {
         return self::select('menus.nombre', 'menus.descripcion', 'categoriamenus.descripcion as categoria', 'tipoalimentos.descripcion as tipo_alimento', 'menus.precioVenta')
-            ->join('categoriamenus', 'menus.categoriaMenu_id', '=', 'categoriamenus.id')
-            ->join('tipoalimentos', 'menus.tipoAlimento_id', '=', 'tipoalimentos.id')
-            ->get();
+            ->leftjoin('categoriamenus', 'menus.categoriaMenu_id', '=', 'categoriamenus.id')
+            ->leftjoin('tipoalimentos', 'menus.tipoAlimento_id', '=', 'tipoalimentos.id');
     }
 
 }

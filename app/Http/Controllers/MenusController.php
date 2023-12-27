@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoriamenu;
 use App\Models\Menu;
 
+use App\Models\Tipoalimento;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -19,30 +21,35 @@ class MenusController extends Controller
         /*$menus=Menu::obtenerMenus();
         return view('menu.index',compact('menus'));*/
 
-        $menus = $this->filtrarMenus($request);
+        $tipoAlimentos=Tipoalimento::obtenerTipo()->get();
+        $categoriaMenus=Categoriamenu::obtenerCat()->get();
+
+        $menus = Menu::obtenerMenus()->get();
 
         if ($request->ajax()) {
-            $menus = Menu::obtenerMenus();
+            $menus=$this->filtrarMenus($request)->get();
 
             return Datatables::of($menus)
                 ->toJson();
         }
 
-        return view('menu.index', compact('menus'));
+
+        return view('menu.index', compact('menus','tipoAlimentos','categoriaMenus'));
 
 
     }
 
     private function filtrarMenus(Request $request){
 
-        return Menu::obtenerMenus()
+        $query = Menu::obtenerMenus();
+
+        return $query
             ->when($request->tipoAlimento, function ($query, $tipoAlimento) {
                 return $query->where('tipo_alimento', $tipoAlimento);
             })
             ->when($request->categoria, function ($query, $categoria) {
                 return $query->where('categoria_menu', $categoria);
-            })
-            ->get();
+            });
     }
 
     /**
