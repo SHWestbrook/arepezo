@@ -30,8 +30,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <form id="filtroForm" action="/menus" method="get">
-                        @csrf
                         <div class="col-sm-6">
                             <label for="tipoAlimento">Tipo Alimento:</label>
                             <select id="tipoAlimento" class="form-control">
@@ -50,8 +48,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        <button type="submit" id="aplicarFiltros">Aplicar Filtros</button>
-                    </form>
+                        <div class="col-sm-3">
+                            <button type="button" id="aplicarFiltros">Aplicar Filtros</button>
+                        </div>
                     <table class="table table-bordered data-table">
                         <thead>
                         <tr>
@@ -60,7 +59,6 @@
                             <th>Categoria Menu</th>
                             <th>Tipo Alimento</th>
                             <th>Precio Venta</th>
-
                         </tr>
                         </thead>
                         <tbody>
@@ -73,11 +71,11 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.data-table').DataTable({
+        const table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: "/menus",
+                url: "{{route('menus.datatable')}}",
                 type: 'GET',
                 data: function (d) {
                     d.tipoAlimento = $('#tipoAlimento').val();
@@ -92,6 +90,9 @@
                 {data: 'precioVenta', name: 'precioVenta'},
             ]
         });
+        $('#aplicarFiltros').click(function (){
+            table.draw();
+        })
     });
 
 </script>

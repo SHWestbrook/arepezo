@@ -20,4 +20,6 @@ Route::get('/', function () {
 });
 
 //Da todas las vistas segun lo que haya en los metodos del controller
+Route::get('/menus/datatables',[MenusController::class, 'datatable'])->name('menus.datatable');
 Route::resource('/menus', MenusController::class);
+

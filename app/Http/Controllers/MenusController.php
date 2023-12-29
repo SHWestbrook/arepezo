@@ -24,32 +24,36 @@ class MenusController extends Controller
         $tipoAlimentos=Tipoalimento::obtenerTipo()->get();
         $categoriaMenus=Categoriamenu::obtenerCat()->get();
 
-        $menus = Menu::obtenerMenus()->get();
-
-        if ($request->ajax()) {
-            $menus=$this->filtrarMenus($request)->get();
-
-            return Datatables::of($menus)
-                ->toJson();
-        }
-
-
-        return view('menu.index', compact('menus','tipoAlimentos','categoriaMenus'));
+        return view('menu.index', compact('tipoAlimentos','categoriaMenus'));
 
 
     }
 
-    private function filtrarMenus(Request $request){
+    public function datatable(Request $request)
+    {
 
-        $query = Menu::obtenerMenus();
+        if ($request->ajax()) {
+            //el ->get te trae de inmediato el resultado de la consulta no nos interesa cuando estamos con
+            // DataTables ya que cuando llegue a toJson lo que haya en la consulta se lo lleva a json directamente
+            $menus = Menu::obtenerMenus();
 
-        return $query
-            ->when($request->tipoAlimento, function ($query, $tipoAlimento) {
-                return $query->where('tipo_alimento', $tipoAlimento);
-            })
-            ->when($request->categoria, function ($query, $categoria) {
-                return $query->where('categoria_menu', $categoria);
-            });
+
+            return DataTables::of($menus)
+                ->filter(function ($query) use ($request) {
+
+                    if ($request->has('tipoAlimento')) {//filtro de tipoAlimento
+                        $query->where('tipoAlimento_id', 'like', "%" . $request->tipoAlimento . "%");
+                    }
+                    if ($request->has('categoria')) {//filtro de categoria
+                        //no puede haber nulls si no no los trae
+                        $query->where('categoriaMenu_id', 'like', "%" . $request->categoria . "%");
+                    }
+                    //aplicar todos los filtros que se quieran
+
+                })
+                ->toJson();
+        }
+
     }
 
     /**
